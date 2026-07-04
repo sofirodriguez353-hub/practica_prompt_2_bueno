@@ -1,0 +1,10 @@
+{% extends 'bankapp/base.html' %}
+{% block content %}
+  <h2>Confirmar eliminación</h2>
+  <p>¿Eliminar movimiento: {{ movimiento }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'feed' %}">Cancelar</a>
+  </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+<article class="movement-card" data-id="{{ movimiento.pk }}">
+  <header>
+    <div class="meta">{{ movimiento.fecha|date:"d M Y H:i" }} · {{ movimiento.cuenta.nombre }}</div>
+    <div class="amount {{ movimiento.tipo }}">{% if movimiento.tipo == 'gasto' %}-{% endif %}{{ movimiento.monto }}</div>
+  </header>
+  <div class="body">
+    <p class="categoria">{{ movimiento.categoria.nombre if movimiento.categoria else '' }}</p>
+    <p class="descripcion">{{ movimiento.descripcion }}</p>
+    <div class="actions">
+      <a href="{% url 'movimiento_update' movimiento.pk %}">Editar</a>
+      <a href="#" data-delete-url="{% url 'movimiento_delete' movimiento.pk %}" class="delete-ajax danger">Eliminar</a>
+    </div>
+  </div>
+</article>

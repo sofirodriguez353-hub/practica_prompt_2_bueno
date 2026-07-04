@@ -1,0 +1,18 @@
+{% extends 'bankapp/base.html' %}
+{% block content %}
+  <h2>{% if movimiento %}Editar movimiento{% else %}Nuevo movimiento{% endif %}</h2>
+  <form method="post" novalidate aria-labelledby="movimiento-title">
+    {% csrf_token %}
+    <div class="form-grid">
+      {{ form.as_p }}
+    </div>
+    <div class="field-preview" aria-hidden="false">
+      <strong>Previsualización:</strong>
+      <span class="monto-preview" aria-live="polite">{{ form.monto.value|default:"0.00" }}</span>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Guardar</button>
+      <a href="{% url 'feed' %}" class="btn">Cancelar</a>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FamilyBank</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1><a href="/">FamilyBank</a></h1>
+      <nav>
+        {% if user.is_authenticated %}
+          <a href="/">Feed</a>
+          <a href="{% url 'movimiento_create' %}">Nuevo</a>
+          <button id="theme-toggle" class="btn-icon" aria-label="Cambiar tema">🌗</button>
+          <a href="{% url 'logout' %}">Salir</a>
+        {% else %}
+          <a href="{% url 'login' %}">Entrar</a>
+          <a href="{% url 'signup' %}">Crear cuenta</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    {% if messages %}
+      <ul class="messages">
+        {% for m in messages %}
+          <li class="message {{ m.tags }}">{{ m }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block scripts %}{% endblock %}
+  <!-- Modal container for confirmations -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modal-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content" role="document">
+      <h3 id="modal-title">Confirmar</h3>
+      <p id="modal-body">¿Estás seguro?</p>
+      <div class="modal-actions">
+        <button id="modal-confirm" class="btn primary">Confirmar</button>
+        <button id="modal-cancel" class="btn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

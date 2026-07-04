@@ -1,0 +1,27 @@
+{% extends 'bankapp/base.html' %}
+{% block content %}
+  <section class="dashboard">
+    <aside class="sidebar">
+      <div class="balance">
+        <h3>Saldo total</h3>
+        <div class="amount">{{ saldo_total }}</div>
+      </div>
+      <div class="cuentas">
+        <h4>Cuentas</h4>
+        <ul>
+          {% for c in cuentas %}
+            <li>{{ c.nombre }} — {{ c.saldo_inicial }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+
+    <section class="feed">
+      {% for m in movimientos %}
+        {% include 'bankapp/includes/_movement_card.html' with movimiento=m %}
+      {% empty %}
+        <p>No hay movimientos aún.</p>
+      {% endfor %}
+    </section>
+  </section>
+{% endblock %}
